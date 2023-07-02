@@ -30,7 +30,7 @@ public class UserController {
 
     @PostMapping("/sign-in")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseUserSignInDto singIn(@RequestBody @Valid PostUserSignInDto dto) {
+    public ResponseUserSignInDto signIn(@RequestBody @Valid PostUserSignInDto dto) {
         return service.signIn(dto);
     }
 
