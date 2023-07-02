@@ -14,9 +14,9 @@ public class UserMapper {
     public User toUser(PostUserSignUpDto dto) {
         return User.builder()
                 .id(UUID.randomUUID().toString())
-                .name(dto.name())
-                .email(dto.email())
-                .password(dto.password())
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .password(dto.getPassword())
                 .build();
     }
 

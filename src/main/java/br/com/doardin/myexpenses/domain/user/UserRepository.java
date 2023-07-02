@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, String> {
 
-    @Query("SELECT COUNT(u.id) > 1 FROM User u WHERE u.email = :email")
+    @Query("SELECT COUNT(u.id) > 0 FROM User u WHERE u.email = :email")
     boolean existsByEmail(String email);
 
 }
