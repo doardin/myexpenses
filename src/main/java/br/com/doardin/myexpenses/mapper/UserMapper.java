@@ -2,21 +2,26 @@ package br.com.doardin.myexpenses.mapper;
 
 import java.util.UUID;
 
-import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import br.com.doardin.myexpenses.application.user.dto.PostUserSignUpDto;
 import br.com.doardin.myexpenses.application.user.dto.ResponseUserSignUpDto;
 import br.com.doardin.myexpenses.domain.user.User;
+import lombok.RequiredArgsConstructor;
 
-@Service
+@Component
+@RequiredArgsConstructor
 public class UserMapper {
+
+    private final PasswordEncoder encoder;
 
     public User toUser(PostUserSignUpDto dto) {
         return User.builder()
                 .id(UUID.randomUUID().toString())
                 .name(dto.getName())
                 .email(dto.getEmail())
-                .password(dto.getPassword())
+                .password(encoder.encode(dto.getPassword()))
                 .build();
     }
 
