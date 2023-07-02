@@ -12,6 +12,12 @@ spring:
                 dialect: org.hibernate.dialect.MySQLDialect
         generate-ddl: true
         open-in-view: false
+config:
+  jwt:
+    keystore-location: keys/key-store.jks
+    keystore-password: e3c8ac43-9bc1-4906-aebf-bec667d0747e
+    key-alias: key-store
+    private-key-passphrase: e3c8ac43-9bc1-4906-aebf-bec667d0747e
 server:
   port: 9000
   servlet:

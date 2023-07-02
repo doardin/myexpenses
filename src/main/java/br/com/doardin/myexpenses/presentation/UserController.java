@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.doardin.myexpenses.application.user.dto.PostUserSignInDto;
 import br.com.doardin.myexpenses.application.user.dto.PostUserSignUpDto;
+import br.com.doardin.myexpenses.application.user.dto.ResponseUserSignInDto;
 import br.com.doardin.myexpenses.application.user.dto.ResponseUserSignUpDto;
 import br.com.doardin.myexpenses.application.user.service.UserAppService;
 import jakarta.validation.Valid;
@@ -24,6 +26,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseUserSignUpDto signUp(@RequestBody @Valid PostUserSignUpDto dto) {
         return service.signUp(dto);
+    }
+
+    @PostMapping("/sign-in")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseUserSignInDto singIn(@RequestBody @Valid PostUserSignInDto dto) {
+        return service.signIn(dto);
     }
 
 }

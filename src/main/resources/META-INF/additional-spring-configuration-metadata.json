@@ -1,0 +1,24 @@
+{
+    "properties": [
+        {
+            "name": "config.jwt.keystore-location",
+            "type": "java.lang.String",
+            "description": "A description for 'config.jwt.keystore-location'"
+        },
+        {
+            "name": "config.jwt.private-key-passphrase",
+            "type": "java.lang.String",
+            "description": "A description for 'config.jwt.private-key-passphrase'"
+        },
+        {
+            "name": "config.jwt.keystore-password",
+            "type": "java.lang.String",
+            "description": "A description for 'config.jwt.keystore-password'"
+        },
+        {
+            "name": "config.jwt.key-alias",
+            "type": "java.lang.String",
+            "description": "A description for 'config.jwt.key-alias'"
+        }
+    ]
+}
