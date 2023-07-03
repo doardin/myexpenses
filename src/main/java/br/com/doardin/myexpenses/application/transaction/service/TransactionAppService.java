@@ -9,6 +9,7 @@ import br.com.doardin.myexpenses.domain.category.CategoryRepository;
 import br.com.doardin.myexpenses.domain.transaction.TransactionRepository;
 import br.com.doardin.myexpenses.exceptions.ApiCustomException;
 import br.com.doardin.myexpenses.mapper.TransactionMapper;
+import br.com.doardin.myexpenses.util.CurrentUserUtil;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -16,16 +17,18 @@ import lombok.RequiredArgsConstructor;
 public class TransactionAppService {
 
     private final TransactionMapper mapper;
+    private final CurrentUserUtil currentUserUtil;
     private final TransactionRepository repository;
     private final CategoryRepository categoryRepository;
 
     public ResponseTransactionDto createTransaction(PostTransactionDto dto) {
+        var user = currentUserUtil.getUserFromSecurityContextHolder();
         var category = categoryRepository.findById(dto.categoryId()).orElseThrow(
                 () -> ApiCustomException.builder()
                         .message("Category not found")
                         .responseStatus(HttpStatus.NOT_FOUND)
                         .build());
-        var transaction = this.mapper.toTransaction(dto, category);
+        var transaction = this.mapper.toTransaction(dto, user, category);
         transaction = repository.save(transaction);
         return mapper.toResponseTransactionDto(transaction, category);
     }

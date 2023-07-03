@@ -8,6 +8,7 @@ import br.com.doardin.myexpenses.application.transaction.dto.PostTransactionDto;
 import br.com.doardin.myexpenses.application.transaction.dto.ResponseTransactionDto;
 import br.com.doardin.myexpenses.domain.category.Category;
 import br.com.doardin.myexpenses.domain.transaction.Transaction;
+import br.com.doardin.myexpenses.domain.user.User;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -16,12 +17,13 @@ public class TransactionMapper {
 
     private final CategoryMapper categoryMapper;
 
-    public Transaction toTransaction(PostTransactionDto dto, Category category) {
+    public Transaction toTransaction(PostTransactionDto dto, User user, Category category) {
         return Transaction.builder()
                 .id(UUID.randomUUID().toString())
                 .description(dto.description())
                 .amount(dto.amount())
                 .category(category)
+                .user(user)
                 .build();
     }
 

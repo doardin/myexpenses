@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import br.com.doardin.myexpenses.domain.category.Category;
+import br.com.doardin.myexpenses.domain.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -37,6 +38,10 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId")
     private Category category;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private User user;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
