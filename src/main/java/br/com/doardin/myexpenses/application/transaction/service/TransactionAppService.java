@@ -11,6 +11,7 @@ import br.com.doardin.myexpenses.application.general.dto.ResponseContentPaginate
 import br.com.doardin.myexpenses.application.transaction.dto.PostTransactionDto;
 import br.com.doardin.myexpenses.application.transaction.dto.ResponseTransactionDto;
 import br.com.doardin.myexpenses.domain.category.CategoryRepository;
+import br.com.doardin.myexpenses.domain.paymentmethod.PaymentMethodRepository;
 import br.com.doardin.myexpenses.domain.transaction.TransactionRepository;
 import br.com.doardin.myexpenses.enums.CategoryTypes;
 import br.com.doardin.myexpenses.exceptions.ApiCustomException;
@@ -26,6 +27,7 @@ public class TransactionAppService {
     private final CurrentUserUtil currentUserUtil;
     private final TransactionRepository repository;
     private final CategoryRepository categoryRepository;
+    private final PaymentMethodRepository paymentMethodRepository;
 
     public ResponseTransactionDto createTransaction(PostTransactionDto dto) {
         var user = currentUserUtil.getUserFromSecurityContextHolder();
@@ -34,9 +36,16 @@ public class TransactionAppService {
                         .message("Category not found")
                         .responseStatus(HttpStatus.NOT_FOUND)
                         .build());
-        var transaction = this.mapper.toTransaction(dto, user, category);
+
+        var paymentMethod = paymentMethodRepository.findById(dto.paymentMethodId()).orElseThrow(
+                () -> ApiCustomException.builder()
+                        .message("Payment method not found")
+                        .responseStatus(HttpStatus.NOT_FOUND)
+                        .build());
+
+        var transaction = this.mapper.toTransaction(dto, user, category, paymentMethod);
         transaction = repository.save(transaction);
-        return mapper.toResponseTransactionDto(transaction, category);
+        return mapper.toResponseTransactionDto(transaction, category, paymentMethod);
     }
 
     public ResponseContentPaginatedDto getTransactions(int page, int size) {

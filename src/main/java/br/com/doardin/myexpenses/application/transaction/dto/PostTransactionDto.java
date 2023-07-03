@@ -8,5 +8,6 @@ import jakarta.validation.constraints.NotBlank;
 public record PostTransactionDto(
         @NotBlank String description,
         @Min(1) BigDecimal amount,
-        @NotBlank String categoryId) {
+        @NotBlank String categoryId,
+        @NotBlank String paymentMethodId) {
 }

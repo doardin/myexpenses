@@ -12,7 +12,7 @@ import br.com.doardin.myexpenses.enums.CategoryTypes;
 
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
 
-    @Query(value = "SELECT t FROM Transaction t JOIN FETCH t.category WHERE t.user = :user", countQuery = "SELECT COUNT(t) FROM Transaction t JOIN t.category WHERE t.user = :user")
+    @Query(value = "SELECT t FROM Transaction t JOIN FETCH t.category JOIN FETCH t.paymentMethod WHERE t.user = :user", countQuery = "SELECT COUNT(t) FROM Transaction t JOIN t.category JOIN t.category WHERE t.user = :user")
     Page<Transaction> findAllByUser(User user, Pageable pageable);
 
     @Query(value = "SELECT COALESCE(SUM(t.amount), 0) FROM Transaction t JOIN t.category c ON c.type = :categoryType WHERE t.user = :user")
