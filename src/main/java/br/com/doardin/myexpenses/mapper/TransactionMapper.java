@@ -37,4 +37,14 @@ public class TransactionMapper {
                 .build();
     }
 
+    public ResponseTransactionDto toResponseTransactionDto(Transaction transaction) {
+        var categoryDto = this.categoryMapper.toResponseCategoryDto(transaction.getCategory());
+        return ResponseTransactionDto.builder()
+                .id(transaction.getId())
+                .description(transaction.getDescription())
+                .amount(transaction.getAmount())
+                .category(categoryDto)
+                .build();
+    }
+
 }
